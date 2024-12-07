@@ -1,0 +1,547 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+    },
+    "paths": {
+    "/token": {
+    "post": {
+    "summary": "Login For Access Token",
+    "operationId": "login_for_access_token_token_post",
+    "requestBody": {
+    "content": {
+    "application/x-www-form-urlencoded": {
+    "schema": {
+    "$ref": "#/components/schemas/Body_login_for_access_token_token_post"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/tasks/": {
+    "post": {
+    "tags": [
+    "Tasks"
+    ],
+    "summary": "Create Task",
+    "operationId": "create_task_tasks__post",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/TaskCreate"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/TaskResponse"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "get": {
+    "tags": [
+    "Tasks"
+    ],
+    "summary": "Get Tasks",
+    "operationId": "get_tasks_tasks__get",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "status",
+    "in": "query",
+    "required": false,
+    "schema": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Status"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/TaskResponse"
+    },
+    "title": "Response Get Tasks Tasks  Get"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/tasks/order-by-due-date": {
+    "get": {
+    "tags": [
+    "Tasks"
+    ],
+    "summary": "Get Tasks Ordered By Due Date",
+    "operationId": "get_tasks_ordered_by_due_date_tasks_order_by_due_date_get",
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "items": {
+    "$ref": "#/components/schemas/TaskResponse"
+    },
+    "type": "array",
+    "title": "Response Get Tasks Ordered By Due Date Tasks Order By Due Date Get"
+    }
+    }
+    }
+    }
+    },
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ]
+    }
+    },
+    "/tasks/{task_id}": {
+    "put": {
+    "tags": [
+    "Tasks"
+    ],
+    "summary": "Update Task",
+    "operationId": "update_task_tasks__task_id__put",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "task_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "title": "Task Id"
+    }
+    }
+    ],
+    "requestBody": {
+    "required": true,
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/TaskUpdate"
+    }
+    }
+    }
+    },
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/TaskResponse"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "Tasks"
+    ],
+    "summary": "Delete Task",
+    "operationId": "delete_task_tasks__task_id__delete",
+    "security": [
+    {
+    "OAuth2PasswordBearer": []
+    }
+    ],
+    "parameters": [
+    {
+    "name": "task_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "title": "Task Id"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "components": {
+    "schemas": {
+    "Body_login_for_access_token_token_post": {
+    "properties": {
+    "grant_type": {
+    "anyOf": [
+    {
+    "type": "string",
+    "pattern": "password"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Grant Type"
+    },
+    "username": {
+    "type": "string",
+    "title": "Username"
+    },
+    "password": {
+    "type": "string",
+    "title": "Password"
+    },
+    "scope": {
+    "type": "string",
+    "title": "Scope",
+    "default": ""
+    },
+    "client_id": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Client Id"
+    },
+    "client_secret": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Client Secret"
+    }
+    },
+    "type": "object",
+    "required": [
+    "username",
+    "password"
+    ],
+    "title": "Body_login_for_access_token_token_post"
+    },
+    "HTTPValidationError": {
+    "properties": {
+    "detail": {
+    "items": {
+    "$ref": "#/components/schemas/ValidationError"
+    },
+    "type": "array",
+    "title": "Detail"
+    }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+    },
+    "TaskCreate": {
+    "properties": {
+    "title": {
+    "type": "string",
+    "title": "Title"
+    },
+    "description": {
+    "type": "string",
+    "title": "Description"
+    },
+    "due_date": {
+    "anyOf": [
+    {
+    "type": "string",
+    "format": "date-time"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Due Date"
+    },
+    "status": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Status",
+    "default": "Pending"
+    }
+    },
+    "type": "object",
+    "required": [
+    "title",
+    "description"
+    ],
+    "title": "TaskCreate"
+    },
+    "TaskResponse": {
+    "properties": {
+    "title": {
+    "type": "string",
+    "title": "Title"
+    },
+    "description": {
+    "type": "string",
+    "title": "Description"
+    },
+    "due_date": {
+    "anyOf": [
+    {
+    "type": "string",
+    "format": "date-time"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Due Date"
+    },
+    "status": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Status",
+    "default": "Pending"
+    },
+    "id": {
+    "type": "string",
+    "title": "Id"
+    },
+    "created_at": {
+    "type": "string",
+    "format": "date-time",
+    "title": "Created At"
+    }
+    },
+    "type": "object",
+    "required": [
+    "title",
+    "description",
+    "id",
+    "created_at"
+    ],
+    "title": "TaskResponse"
+    },
+    "TaskUpdate": {
+    "properties": {
+    "title": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Title"
+    },
+    "description": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Description"
+    },
+    "due_date": {
+    "anyOf": [
+    {
+    "type": "string",
+    "format": "date-time"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Due Date"
+    },
+    "status": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "null"
+    }
+    ],
+    "title": "Status"
+    }
+    },
+    "type": "object",
+    "required": [
+    "title",
+    "description",
+    "due_date",
+    "status"
+    ],
+    "title": "TaskUpdate"
+    },
+    "ValidationError": {
+    "properties": {
+    "loc": {
+    "items": {
+    "anyOf": [
+    {
+    "type": "string"
+    },
+    {
+    "type": "integer"
+    }
+    ]
+    },
+    "type": "array",
+    "title": "Location"
+    },
+    "msg": {
+    "type": "string",
+    "title": "Message"
+    },
+    "type": {
+    "type": "string",
+    "title": "Error Type"
+    }
+    },
+    "type": "object",
+    "required": [
+    "loc",
+    "msg",
+    "type"
+    ],
+    "title": "ValidationError"
+    }
+    },
+    "securitySchemes": {
+    "OAuth2PasswordBearer": {
+    "type": "oauth2",
+    "flows": {
+    "password": {
+    "scopes": {},
+    "tokenUrl": "token"
+    }
+    }
+    }
+    }
+    }
+    }
