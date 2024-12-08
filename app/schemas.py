@@ -14,12 +14,10 @@ class TaskUpdate(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
     status: Optional[str] = None  
-    due_date: Optional[datetime] = None  # Changed from str to datetime
-
-
+    due_date: Optional[datetime] = None  
 
 class TaskResponse(BaseModel):
-    id: str  # 'id' should be a string
+    id: str 
     title: str
     description: str
     due_date: datetime
@@ -27,4 +25,4 @@ class TaskResponse(BaseModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True  # Allow ORM-style objects to be serialized properly
+        orm_mode = True  

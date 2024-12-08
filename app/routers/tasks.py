@@ -85,3 +85,26 @@ async def delete_task(task_id: str, current_user: str = Depends(get_current_user
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Task not found")
     return {"message": "Task deleted successfully"}
+
+
+@router.put("/{task_id}", response_model=TaskResponse)
+def update_task(task_id: str, task: TaskUpdate, token: str = Depends(get_current_user)):
+    task_id = validate_object_id(task_id)
+    update_data = {k: v for k, v in task.dict(exclude_unset=True).items()}
+
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No data provided to update")
+    result = tasks_collection.find_one_and_update(
+        {"_id": task_id}, 
+        {"$set": update_data}, 
+        return_document=True 
+    )
+
+    if not result:
+        raise HTTPException(status_code=404, detail="Task not found")
+
+    result["id"] = str(result.pop("_id"))
+    if "created_at" in result and isinstance(result["created_at"], datetime):
+        result["created_at"] += timedelta(hours=5, minutes=30)
+
+    return TaskResponse(**result)
